@@ -1,0 +1,37 @@
+import { motion } from 'framer-motion';
+
+export const About = () => {
+    return (
+        <section id="about" className="py-24 container mx-auto px-6">
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ staggerChildren: 0.2 }}
+                className="grid md:grid-cols-2 gap-12 items-center"
+            >
+                <motion.div
+                    variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.6 }}}}
+                >
+                    <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white font-display">About Me</h2>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                        Hi, I'm a Software Engineer based in London! I am currently working at Pulselive and have a first-class degree in Computer Science at King's College London.
+                    </p>
+                </motion.div>
+                <motion.div
+                    variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.6 }}}}
+                    className="space-y-6"
+                >
+                    <div className="p-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 font-display">1+</h3>
+                        <p className="text-gray-700 dark:text-gray-300">Years of Experience</p>
+                    </div>
+                    <div className="p-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 font-display">10+</h3>
+                        <p className="text-gray-700 dark:text-gray-300">Projects Completed</p>
+                    </div>
+                </motion.div>
+            </motion.div>
+        </section>
+    );
+};
