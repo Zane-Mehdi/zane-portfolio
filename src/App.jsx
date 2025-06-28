@@ -206,7 +206,7 @@ const App = () => {
                             <>
                                 <Hero />
                                 <About />
-                                <Testimonials />
+                                {/*<Testimonials />*/}
                                 <Skills />
                                 <Projects />
                             </>
