@@ -90,13 +90,13 @@ export const Projects = () => {
   return (
       <section id="projects" className="py-24 container mx-auto px-6">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white font-display">My Work</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {projectData.map((project, i) => {
             const isLarge = project.size === 'large';
             return (
                 <motion.div
                     key={project.id}
-                    className={`rounded-xl overflow-hidden cursor-pointer shadow-lg group relative ${isLarge ? 'lg:col-span-2' : ''}`}
+                    className={`rounded-xl overflow-hidden cursor-pointer shadow-lg group relative aspect-square ${isLarge ? 'lg:col-span-2' : ''}`}
                     layoutId={project.id}
                     onClick={() => setSelectedId(project.id)}
                     data-hoverable
@@ -113,19 +113,28 @@ export const Projects = () => {
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.3 }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-6 text-white">
-                    <h3 className="font-bold text-2xl font-display">{project.title}</h3>
-                    <p className="text-gray-300 mb-2">{project.category}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags?.map((tag, index) => (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:p-6 text-white">
+                    <h3 className="font-bold text-sm sm:text-lg lg:text-xl xl:text-2xl font-display leading-tight mb-1 sm:mb-2 line-clamp-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-300 text-xs sm:text-sm lg:text-base mb-2 sm:mb-3 line-clamp-1">
+                      {project.category}
+                    </p>
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
+                      {project.tags?.slice(0, 3).map((tag, index) => (
                           <span
                               key={index}
-                              className="bg-indigo-600 text-white text-xs font-semibold px-2 py-1 rounded"
+                              className="bg-indigo-600 text-white text-xs font-semibold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded text-[10px] sm:text-xs"
                           >
                           {tag}
                         </span>
                       ))}
+                      {project.tags?.length > 3 && (
+                          <span className="text-gray-300 text-xs">
+                          +{project.tags.length - 3}
+                        </span>
+                      )}
                     </div>
                   </div>
 
