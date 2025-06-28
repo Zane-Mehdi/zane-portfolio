@@ -104,13 +104,18 @@ export const handler = async (event, context) => {
         
         Based on the information above, provide a helpful, detailed answer. If the question is about setting up a meeting, asking for a resume, a direct job offer, or anything that requires sending an email, firmly but politely state that you cannot perform that action directly. Instead, suggest that they reach out to Zane on LinkedIn (https://www.linkedin.com/in/zane-mehdi/) or via email (zanemehdi6@gmail.com) for such requests. 
         
-        Keep your answers conversational, informative, and professional. Do not use markdown formatting. Be specific about Zane's experience and skills when relevant.`;
+        Keep your answers conversational, informative, and professional. Do not use markdown formatting. Be specific about Zane's experience and skills when relevant.
+        Answer in 2-3 sentences MAX. Be direct and helpful. For meetings/emails/jobs, say to contact via LinkedIn or email. No markdown.\`;`;
 
         // Call Gemini API
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
         const payload = {
-            contents: [{ role: "user", parts: [{ text: prompt }] }]
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: {
+                maxOutputTokens: 100,
+                temperature: 0.5
+            }
         };
 
         const response = await fetch(apiUrl, {
