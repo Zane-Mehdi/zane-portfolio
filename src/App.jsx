@@ -98,7 +98,7 @@ const App = () => {
         setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
     };
 
-    // Enhanced view change handler
+    // Enhanced view change handler with forced component refresh
     const handleViewChange = (newView) => {
         if (newView !== currentView) {
             // Immediate scroll reset
@@ -107,10 +107,22 @@ const App = () => {
             // Set new view
             setCurrentView(newView);
 
-            // Additional scroll reset after state change
+            // Force a re-render and scroll reset after state change
             setTimeout(() => {
                 scrollToTop();
+
+                // Trigger a window resize event to wake up any lazy components
+                window.dispatchEvent(new Event('resize'));
+
+                // Trigger scroll event to activate any scroll-based animations
+                window.dispatchEvent(new Event('scroll'));
             }, 50);
+
+            // Additional trigger after animation completes
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+                scrollToTop();
+            }, 500);
         }
     };
 
@@ -180,6 +192,14 @@ const App = () => {
                         onAnimationComplete={() => {
                             // Final scroll reset when animation completes
                             scrollToTop();
+
+                            // Force component activation for mobile
+                            if (currentView === 'journey') {
+                                setTimeout(() => {
+                                    window.dispatchEvent(new Event('resize'));
+                                    window.dispatchEvent(new Event('scroll'));
+                                }, 100);
+                            }
                         }}
                     >
                         {currentView === 'home' && (
@@ -192,11 +212,35 @@ const App = () => {
                             </>
                         )}
                         {currentView === 'journey' && (
-                            <div className="pt-24">
-                                <WorkHistory />
-                                <Education />
-                                <GitHubActivityFeed />
-                                <Resume />
+                            <div className="pt-24 min-h-screen">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.2 }}
+                                >
+                                    <WorkHistory />
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.3 }}
+                                >
+                                    <Education />
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.4 }}
+                                >
+                                    <GitHubActivityFeed />
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.5 }}
+                                >
+                                    <Resume />
+                                </motion.div>
                             </div>
                         )}
                         {currentView === 'contact' && (
