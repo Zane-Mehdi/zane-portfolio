@@ -21,10 +21,34 @@ const App = () => {
     const [currentView, setCurrentView] = useState('home');
     const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
+    // Improved scroll reset function
+    const scrollToTop = () => {
+        // Multiple methods to ensure cross-browser compatibility
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+        // Handle Lenis smooth scrolling if available
+        if (window.Lenis && window.lenis) {
+            window.lenis.scrollTo(0, { immediate: true });
+        }
+
+        // Force scroll reset with a small delay for mobile browsers
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }, 10);
+    };
+
     useEffect(() => {
+        scrollToTop(); // Initial scroll reset
+
         // Check if Lenis is available on the window object
         if (window.Lenis) {
             const lenis = new window.Lenis();
+            window.lenis = lenis; // Store reference for later use
+
             function raf(time) {
                 lenis.raf(time);
                 requestAnimationFrame(raf);
@@ -44,8 +68,21 @@ const App = () => {
         }
     }, []);
 
+    // Enhanced scroll reset when view changes
     useEffect(() => {
-        window.scrollTo(0, 0);
+        scrollToTop();
+
+        // Additional reset with requestAnimationFrame for better timing
+        requestAnimationFrame(() => {
+            scrollToTop();
+        });
+
+        // Final fallback with longer delay for stubborn mobile browsers
+        const timeoutId = setTimeout(() => {
+            scrollToTop();
+        }, 100);
+
+        return () => clearTimeout(timeoutId);
     }, [currentView]);
 
     useEffect(() => {
@@ -61,6 +98,22 @@ const App = () => {
         setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
     };
 
+    // Enhanced view change handler
+    const handleViewChange = (newView) => {
+        if (newView !== currentView) {
+            // Immediate scroll reset
+            scrollToTop();
+
+            // Set new view
+            setCurrentView(newView);
+
+            // Additional scroll reset after state change
+            setTimeout(() => {
+                scrollToTop();
+            }, 50);
+        }
+    };
+
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -68,25 +121,66 @@ const App = () => {
         restDelta: 0.001
     });
 
+    // Enhanced view variants with better timing
+    const enhancedViewVariants = {
+        hidden: {
+            opacity: 0,
+            y: 20,
+            transition: { duration: 0.2 }
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.4,
+                delay: 0.1,
+                ease: "easeOut"
+            }
+        },
+        exit: {
+            opacity: 0,
+            y: -20,
+            transition: { duration: 0.2 }
+        }
+    };
+
     return (
         <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-white font-sans antialiased selection:bg-indigo-500/50">
             <SpotlightEffect theme={theme} />
             <div className="hidden md:block">
                 <CustomCursor />
             </div>
-            <CommandPalette isOpen={isCommandPaletteOpen} setIsOpen={setIsCommandPaletteOpen} setCurrentView={setCurrentView} toggleTheme={toggleTheme} />
+            <CommandPalette
+                isOpen={isCommandPaletteOpen}
+                setIsOpen={setIsCommandPaletteOpen}
+                setCurrentView={handleViewChange}
+                toggleTheme={toggleTheme}
+            />
 
             <motion.div className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 origin-left z-[60]" style={{ scaleX }} />
-            <Navbar theme={theme} toggleTheme={toggleTheme} currentView={currentView} setCurrentView={setCurrentView} />
+            <Navbar
+                theme={theme}
+                toggleTheme={toggleTheme}
+                currentView={currentView}
+                setCurrentView={handleViewChange}
+            />
 
             <main className="relative z-10">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentView}
-                        variants={viewVariants}
+                        variants={enhancedViewVariants}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
+                        onAnimationStart={() => {
+                            // Ensure scroll is at top when animation starts
+                            scrollToTop();
+                        }}
+                        onAnimationComplete={() => {
+                            // Final scroll reset when animation completes
+                            scrollToTop();
+                        }}
                     >
                         {currentView === 'home' && (
                             <>

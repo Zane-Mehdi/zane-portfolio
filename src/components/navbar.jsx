@@ -46,8 +46,13 @@ export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
     ];
 
     const handleNavClick = (view) => {
-        setCurrentView(view);
+        // Close mobile menu first
         setIsMobileMenuOpen(false);
+
+        // Small delay to allow menu to close, then change view
+        setTimeout(() => {
+            setCurrentView(view);
+        }, 100);
     };
 
     return (
