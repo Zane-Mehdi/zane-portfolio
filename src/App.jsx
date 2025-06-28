@@ -20,6 +20,7 @@ const App = () => {
     const [theme, setTheme] = useState('dark');
     const [currentView, setCurrentView] = useState('home');
     const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+    const [allowScrollAnimations, setAllowScrollAnimations] = useState(true);
 
     // Improved scroll reset function
     const scrollToTop = () => {
@@ -66,6 +67,22 @@ const App = () => {
         } else {
             setTheme('light');
         }
+
+        // Add scroll listener to re-enable animations after user scrolls
+        let hasScrolled = false;
+        const handleScroll = () => {
+            if (!hasScrolled) {
+                hasScrolled = true;
+                setAllowScrollAnimations(true);
+                window.removeEventListener('scroll', handleScroll);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     // Enhanced scroll reset when view changes
@@ -98,9 +115,12 @@ const App = () => {
         setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
     };
 
-    // Enhanced view change handler with forced component refresh
+    // Enhanced view change handler with scroll animation control
     const handleViewChange = (newView) => {
         if (newView !== currentView) {
+            // Disable scroll animations during page transition
+            setAllowScrollAnimations(false);
+
             // Immediate scroll reset
             scrollToTop();
 
@@ -114,15 +134,15 @@ const App = () => {
                 // Trigger a window resize event to wake up any lazy components
                 window.dispatchEvent(new Event('resize'));
 
-                // Trigger scroll event to activate any scroll-based animations
-                window.dispatchEvent(new Event('scroll'));
-            }, 50);
+                // Force scroll animations to be disabled temporarily
+                window.scrollAnimationsDisabled = true;
 
-            // Additional trigger after animation completes
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'));
-                scrollToTop();
-            }, 500);
+                // Re-enable scroll animations after a delay
+                setTimeout(() => {
+                    setAllowScrollAnimations(true);
+                    window.scrollAnimationsDisabled = false;
+                }, 300);
+            }, 50);
         }
     };
 
@@ -177,7 +197,7 @@ const App = () => {
                 setCurrentView={handleViewChange}
             />
 
-            <main className="relative z-10">
+            <main className="relative z-10" data-scroll-animations={allowScrollAnimations}>
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentView}
@@ -188,20 +208,21 @@ const App = () => {
                         onAnimationStart={() => {
                             // Ensure scroll is at top when animation starts
                             scrollToTop();
+                            // Disable scroll animations during transition
+                            window.scrollAnimationsDisabled = true;
                         }}
                         onAnimationComplete={() => {
                             // Final scroll reset when animation completes
                             scrollToTop();
 
-                            // Force component activation for mobile
-                            if (currentView === 'journey') {
-                                setTimeout(() => {
-                                    window.dispatchEvent(new Event('resize'));
-                                    window.dispatchEvent(new Event('scroll'));
-                                }, 100);
-                            }
+                            // Re-enable scroll animations after transition
+                            setTimeout(() => {
+                                window.scrollAnimationsDisabled = false;
+                                setAllowScrollAnimations(true);
+                            }, 100);
                         }}
                     >
+                        >
                         {currentView === 'home' && (
                             <>
                                 <Hero />
@@ -214,32 +235,36 @@ const App = () => {
                         {currentView === 'journey' && (
                             <div className="pt-24 min-h-screen">
                                 <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.2 }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.3, delay: 0.1 }}
+                                    style={{ willChange: 'auto' }}
                                 >
-                                    <WorkHistory />
+                                    <WorkHistory forceVisible={!allowScrollAnimations} />
                                 </motion.div>
                                 <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.3 }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.3, delay: 0.2 }}
+                                    style={{ willChange: 'auto' }}
                                 >
-                                    <Education />
+                                    <Education forceVisible={!allowScrollAnimations} />
                                 </motion.div>
                                 <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.4 }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.3, delay: 0.3 }}
+                                    style={{ willChange: 'auto' }}
                                 >
-                                    <GitHubActivityFeed />
+                                    <GitHubActivityFeed forceVisible={!allowScrollAnimations} />
                                 </motion.div>
                                 <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.5 }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.3, delay: 0.4 }}
+                                    style={{ willChange: 'auto' }}
                                 >
-                                    <Resume />
+                                    <Resume forceVisible={!allowScrollAnimations} />
                                 </motion.div>
                             </div>
                         )}
