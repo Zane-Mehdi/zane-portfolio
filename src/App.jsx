@@ -24,23 +24,23 @@ const App = () => {
 
     // Improved scroll reset function
     const scrollToTop = () => {
-        // Multiple methods to ensure cross-browser compatibility
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
+        const offset = 20; // Just enough to trigger rendering but still feel like "top"
 
-        // Handle Lenis smooth scrolling if available
+        window.scrollTo({ top: offset, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = offset;
+        document.body.scrollTop = offset;
+
         if (window.Lenis && window.lenis) {
-            window.lenis.scrollTo(0, { immediate: true });
+            window.lenis.scrollTo(offset, { immediate: true });
         }
 
-        // Force scroll reset with a small delay for mobile browsers
         setTimeout(() => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
+            window.scrollTo(0, offset);
+            document.documentElement.scrollTop = offset;
+            document.body.scrollTop = offset;
         }, 10);
     };
+
 
     useEffect(() => {
         scrollToTop(); // Initial scroll reset
@@ -227,7 +227,7 @@ const App = () => {
                             <>
                                 <Hero />
                                 <About />
-                                {/*<Testimonials />*/}
+                                <Testimonials />
                                 <Skills />
                                 <Projects />
                             </>
