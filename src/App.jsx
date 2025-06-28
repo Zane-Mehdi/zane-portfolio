@@ -12,6 +12,7 @@ import {CustomCursor} from "./helper/custom-cursor.jsx";
 import {CommandPalette} from "./helper/command-palette.jsx";
 import {Navbar} from "./components/navbar.jsx";
 import {Resume} from "./components/resume.jsx";
+import {Contact} from "./components/contact.jsx";
 import {Footer, viewVariants} from "./components/footer.jsx";
 import {Projects} from "./components/projects.jsx";
 
@@ -102,6 +103,11 @@ const App = () => {
                                 <Education />
                                 <GitHubActivityFeed />
                                 <Resume />
+                            </div>
+                        )}
+                        {currentView === 'contact' && (
+                            <div className="pt-24">
+                                <Contact />
                             </div>
                         )}
                     </motion.div>
