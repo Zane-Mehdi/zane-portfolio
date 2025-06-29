@@ -229,7 +229,9 @@ export const Hero = () => {
                 transition={{ duration: isMobile ? 0.5 : 1, delay: isMobile ? 0.8 : 1.5, ease: 'easeOut' }}
                 className="absolute"
                 style={{
-                    bottom: isMobile ? '15rem' : '5rem'
+                    bottom: isMobile
+                        ? `max(3rem, calc(50vh - 200px))` // Ensure it doesn't overlap content on small screens
+                        : `max(5rem, calc(20vh - 100px))` // Desktop version with safety margin
                 }}
             >
                 <div className="text-gray-600 dark:text-gray-400">
