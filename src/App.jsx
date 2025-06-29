@@ -10,10 +10,11 @@ import {GitHubActivityFeed} from "./components/github-activity.jsx";
 import {SpotlightEffect} from "./helper/spotlight.jsx";
 import {CustomCursor} from "./helper/custom-cursor.jsx";
 import {CommandPalette} from "./helper/command-palette.jsx";
+import {FloatingContactButton} from "./components/floating-contact-button.jsx"; // Add this import
 import {Navbar} from "./components/navbar.jsx";
 import {Resume} from "./components/resume.jsx";
 import {Contact} from "./components/contact.jsx";
-import {Footer, viewVariants} from "./components/footer.jsx";
+import {Footer} from "./components/footer.jsx";
 import {Projects} from "./components/projects.jsx";
 
 const App = () => {
@@ -24,7 +25,7 @@ const App = () => {
 
     // Improved scroll reset function
     const scrollToTop = () => {
-        const offset = 30; // Just enough to trigger rendering but still feel like "top"
+        const offset = 50; // Just enough to trigger rendering but still feel like "top"
 
         window.scrollTo({ top: offset, left: 0, behavior: 'instant' });
         document.documentElement.scrollTop = offset;
@@ -40,7 +41,6 @@ const App = () => {
             document.body.scrollTop = offset;
         }, 10);
     };
-
 
     useEffect(() => {
         scrollToTop(); // Initial scroll reset
@@ -189,6 +189,12 @@ const App = () => {
                 toggleTheme={toggleTheme}
             />
 
+            {/* Floating Contact Button */}
+            <FloatingContactButton
+                onContactClick={() => handleViewChange('contact')}
+                currentView={currentView}
+            />
+
             <motion.div className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 origin-left z-[60]" style={{ scaleX }} />
             <Navbar
                 theme={theme}
@@ -222,7 +228,6 @@ const App = () => {
                             }, 100);
                         }}
                     >
-                        >
                         {currentView === 'home' && (
                             <>
                                 <Hero />

@@ -1,0 +1,39 @@
+/* Balanced: Subtle but visible light mode gradient */
+:root {
+    --grad-color-1: #f1f5f9; /* Slate 100 */
+    --grad-color-2: #e2e8f0; /* Slate 200 */
+    --grad-color-3: #f0f9ff; /* Sky 50 */
+    --grad-color-4: #f8fafc; /* Slate 50 */
+}
+
+/* Keep your perfect dark mode colors */
+.dark {
+    --grad-color-1: #1e1b4b; /* Dark Indigo */
+    --grad-color-2: #111827; /* Gray 950 */
+    --grad-color-3: #312e81; /* Indigo 900 */
+    --grad-color-4: #000000; /* Black */
+}
+
+.animated-gradient {
+    background: linear-gradient(
+            -45deg,
+            var(--grad-color-1),
+            var(--grad-color-2),
+            var(--grad-color-3),
+            var(--grad-color-4)
+    );
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
