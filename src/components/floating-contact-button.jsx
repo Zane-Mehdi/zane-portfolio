@@ -60,10 +60,10 @@ export const FloatingContactButton = ({ onContactClick, currentView }) => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
             >
-                {/* Close button */}
+                {/* Close button - always visible on mobile, hover-triggered on desktop */}
                 <motion.button
                     onClick={handleClose}
-                    className="absolute -top-2 -right-2 w-6 h-6 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    className="absolute -top-2 -right-2 w-6 h-6 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center z-10 md:opacity-0 md:group-hover:opacity-100 opacity-100 transition-opacity duration-200"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                 >
@@ -94,9 +94,9 @@ export const FloatingContactButton = ({ onContactClick, currentView }) => {
                     </div>
                 </motion.div>
 
-                {/* Notification dot for new messages vibe */}
+                {/* Notification dot for new messages vibe - hidden on mobile */}
                 <motion.div
-                    className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white"
+                    className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white hidden md:block"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                 />

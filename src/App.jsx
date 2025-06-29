@@ -25,7 +25,7 @@ const App = () => {
 
     // Improved scroll reset function
     const scrollToTop = () => {
-        const offset = 50; // Just enough to trigger rendering but still feel like "top"
+        const offset = 0; // Just enough to trigger rendering but still feel like "top"
 
         window.scrollTo({ top: offset, left: 0, behavior: 'instant' });
         document.documentElement.scrollTop = offset;
