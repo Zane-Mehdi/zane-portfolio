@@ -5,7 +5,7 @@ export const workHistoryData = [
         role: "Software Engineer",
         period: "Sep 2023 – Present",
         description: [
-            "Built and maintained frontend experiences using a custom CMS, integrating FreeMarker templating with React/JavaScript and SCSS for dynamic, branded pages  delivering scalable features across major sports platforms including the Premier League, Saudi Pro League, and the England & Wales Cricket Board..",
+            "Built and maintained frontend experiences using a custom CMS, integrating FreeMarker templating with React/JavaScript and SCSS for dynamic, branded pages across major sports platforms including the Premier League, Saudi Pro League, and the England & Wales Cricket Board.",
             "Developed full-stack solutions using Java (Spring & Maven), JavaScript for an internal company orgchart",
             "Worked on mobile apps and widgets, focusing on automation testing and UI development using Kotlin and Swift.",
             "Contributed to backend systems using Java and Spring, including upgrading core services to Java 21 and supporting ongoing Maven-based builds.",
