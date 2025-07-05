@@ -1,170 +1,158 @@
 import { socialLinksData } from "../data/data.jsx";
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useState, useEffect, useMemo } from 'react';
 import "../hero.css";
 
 export const Hero = () => {
     const [isMobile, setIsMobile] = useState(false);
 
-    // Detect mobile devices
+    // Optimize mobile detection with debouncing
     useEffect(() => {
         const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+            setIsMobile(window.innerWidth < 768);
         };
 
         checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+
+        // Debounced resize handler
+        let timeoutId;
+        const debouncedResize = () => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(checkMobile, 100);
+        };
+
+        window.addEventListener('resize', debouncedResize);
+        return () => {
+            window.removeEventListener('resize', debouncedResize);
+            clearTimeout(timeoutId);
+        };
     }, []);
 
-    // Only initialize mouse tracking for desktop
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    const handleMouseMove = ({ clientX, clientY, currentTarget }) => {
-        if (isMobile) return; // Skip on mobile
-
-        const { left, top } = currentTarget.getBoundingClientRect();
-        mouseX.set(clientX - left);
-        mouseY.set(clientY - top);
-    };
-
-    // Parallax transformations (disabled on mobile)
-    const gridX = useTransform(mouseX, [0, 1000], isMobile ? [0, 0] : [-20, 20]);
-    const gridY = useTransform(mouseY, [0, 1000], isMobile ? [0, 0] : [-20, 20]);
-
-    const orb1X = useTransform(mouseX, [0, 1000], isMobile ? [0, 0] : [-40, 40]);
-    const orb1Y = useTransform(mouseY, [0, 1000], isMobile ? [0, 0] : [-10, 30]);
-    const orb2X = useTransform(mouseX, [0, 1000], isMobile ? [0, 0] : [40, -40]);
-    const orb2Y = useTransform(mouseY, [0, 1000], isMobile ? [0, 0] : [30, -10]);
-    const orb3X = useTransform(mouseX, [0, 1000], isMobile ? [0, 0] : [-20, 20]);
-    const orb3Y = useTransform(mouseY, [0, 1000], isMobile ? [0, 0] : [10, -30]);
-
-    // Simplified text animation for mobile
+    // Memoize title animation
     const title = "Zane Mehdi";
-    const titleVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: isMobile ? 0.03 : 0.08, // Faster on mobile
+    const titleAnimation = useMemo(() => ({
+        titleVariants: {
+            hidden: { opacity: 0 },
+            visible: {
+                opacity: 1,
+                transition: {
+                    staggerChildren: isMobile ? 0.03 : 0.08,
+                },
             },
         },
-    };
-    const charVariants = {
-        hidden: { opacity: 0, y: isMobile ? 20 : 50 }, // Less movement on mobile
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: isMobile ? 0.3 : 0.5, // Faster on mobile
-                ease: 'easeOut',
+        charVariants: {
+            hidden: { opacity: 0, y: isMobile ? 20 : 50 },
+            visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                    duration: isMobile ? 0.3 : 0.5,
+                    ease: 'easeOut',
+                },
             },
         },
-    };
+    }), [isMobile]);
+
+    // Memoize social links to prevent re-renders
+    const socialLinks = useMemo(() => socialLinksData.map((social) => (
+        <motion.a
+            key={social.name}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative"
+            whileHover={isMobile ? {} : { y: -5, scale: 1.1 }}
+            transition={isMobile ? {} : { type: 'spring', stiffness: 300 }}
+        >
+            <div className="relative p-3 rounded-full bg-white/70 dark:bg-gray-800/70 shadow-lg backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 group-hover:shadow-xl transition-all duration-300">
+                <img
+                    src={social.icon}
+                    alt={`${social.name} logo`}
+                    className={`
+                        h-6 w-6 transition-all duration-300
+                        ${social.name === 'GitHub' ? 'dark:invert' : ''}
+                        ${isMobile ? '' : 'md:grayscale md:opacity-70 group-hover:grayscale-0 group-hover:opacity-100'}
+                    `}
+                />
+            </div>
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
+                {social.name}
+            </div>
+        </motion.a>
+    )), [isMobile]);
 
     return (
         <section
             id="hero"
             className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden animated-gradient"
-            onMouseMove={isMobile ? undefined : handleMouseMove} // Only add listener on desktop
         >
-            {/* Simplified Grid Pattern for Mobile */}
-            {isMobile ? (
-                // Static version for mobile
-                <div
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                        backgroundImage: `
-                            linear-gradient(rgba(165, 180, 252, 0.2) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(165, 180, 252, 0.2) 1px, transparent 1px)
-                        `,
-                        backgroundSize: '40px 40px',
-                    }}
-                />
-            ) : (
-                // Animated version for desktop
-                <motion.div
-                    className="absolute inset-0 opacity-40 dark:opacity-20"
-                    style={{
-                        backgroundImage: `
-                            linear-gradient(rgba(165, 180, 252, 0.3) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(165, 180, 252, 0.3) 1px, transparent 1px)
-                        `,
-                        backgroundSize: '60px 60px',
-                        x: gridX,
-                        y: gridY,
-                    }}
-                />
-            )}
+            {/* Static Grid Pattern */}
+            <div
+                className="absolute inset-0 opacity-20 dark:opacity-10"
+                style={{
+                    backgroundImage: `
+                        linear-gradient(rgba(165, 180, 252, 0.2) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(165, 180, 252, 0.2) 1px, transparent 1px)
+                    `,
+                    backgroundSize: isMobile ? '40px 40px' : '60px 60px',
+                }}
+            />
 
-            {/* Simplified Orbs for Mobile */}
-            {isMobile ? (
-                // Static orbs for mobile
-                <>
-                    <div className="absolute top-20 left-10 w-32 h-32 bg-purple-300/20 dark:bg-purple-800/10 rounded-full blur-xl" />
-                    <div className="absolute top-1/2 right-16 w-24 h-24 bg-indigo-300/20 dark:bg-indigo-800/10 rounded-full blur-xl" />
-                    <div className="absolute bottom-20 left-20 w-20 h-20 bg-slate-300/20 dark:bg-slate-800/10 rounded-full blur-xl" />
-                </>
-            ) : (
-                // Animated orbs for desktop
-                <>
-                    <motion.div
-                        className="absolute top-20 left-10 w-48 h-48 bg-purple-300/30 dark:bg-purple-800/20 rounded-full blur-2xl"
-                        style={{ x: orb1X, y: orb1Y }}
-                        animate={{
-                            y: [0, -20, 0],
-                            x: [0, 10, 0],
-                        }}
-                        transition={{
-                            duration: 8,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                    />
-                    <motion.div
-                        className="absolute top-1/2 right-16 w-36 h-36 bg-indigo-300/30 dark:bg-indigo-800/20 rounded-full blur-2xl"
-                        style={{ x: orb2X, y: orb2Y }}
-                        animate={{
-                            y: [0, 20, 0],
-                            x: [0, -15, 0],
-                        }}
-                        transition={{
-                            duration: 6,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 1
-                        }}
-                    />
-                    <motion.div
-                        className="absolute bottom-20 left-20 w-32 h-32 bg-slate-300/30 dark:bg-slate-800/20 rounded-full blur-2xl"
-                        style={{ x: orb3X, y: orb3Y }}
-                        animate={{
-                            y: [0, -15, 0],
-                            x: [0, 20, 0],
-                        }}
-                        transition={{
-                            duration: 7,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 2
-                        }}
-                    />
-                </>
-            )}
+            {/* Static Orbs with Simple Animations */}
+            <motion.div
+                className="absolute top-20 left-10 w-32 h-32 md:w-48 md:h-48 bg-purple-300/20 dark:bg-purple-800/10 rounded-full blur-xl"
+                animate={{
+                    y: [0, -20, 0],
+                    scale: [1, 1.1, 1]
+                }}
+                transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+            />
+            <motion.div
+                className="absolute top-1/2 right-16 w-24 h-24 md:w-36 md:h-36 bg-indigo-300/20 dark:bg-indigo-800/10 rounded-full blur-xl"
+                animate={{
+                    y: [0, 20, 0],
+                    scale: [1, 1.05, 1]
+                }}
+                transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1
+                }}
+            />
+            <motion.div
+                className="absolute bottom-20 left-20 w-20 h-20 md:w-32 md:h-32 bg-slate-300/20 dark:bg-slate-800/10 rounded-full blur-xl"
+                animate={{
+                    y: [0, -15, 0],
+                    scale: [1, 1.08, 1]
+                }}
+                transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 2
+                }}
+            />
 
             {/* Main Content */}
             <div className="relative z-10">
-                {/* Optimized Title Animation */}
                 <motion.h1
-                    variants={titleVariants}
+                    variants={titleAnimation.titleVariants}
                     initial="hidden"
                     animate="visible"
                     className="text-6xl md:text-8xl font-extrabold text-gray-900 dark:text-white tracking-tighter font-display"
                     aria-label={title}
                 >
                     {title.split("").map((char, index) => (
-                        <motion.span key={index} variants={charVariants} className="inline-block">
+                        <motion.span
+                            key={index}
+                            variants={titleAnimation.charVariants}
+                            className="inline-block"
+                        >
                             {char === " " ? "\u00A0" : char}
                         </motion.span>
                     ))}
@@ -178,6 +166,7 @@ export const Hero = () => {
                 >
                     Software Engineer
                 </motion.p>
+
                 <motion.p
                     initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -193,36 +182,11 @@ export const Hero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.7 : 1.2, ease: 'easeOut' }}
                 >
-                    {socialLinksData.map((social) => (
-                        <motion.a
-                            key={social.name}
-                            href={social.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group relative"
-                            whileHover={isMobile ? {} : {y: -5, scale: 1.1}} // Disable hover effects on mobile
-                            transition={isMobile ? {} : {type: 'spring', stiffness: 300}}
-                        >
-                            <div className="relative p-3 rounded-full bg-white/70 dark:bg-gray-800/70 shadow-lg backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 group-hover:shadow-xl transition-all duration-300">
-                                <img
-                                    src={social.icon}
-                                    alt={`${social.name} logo`}
-                                    className={`
-                                        h-6 w-6 transition-all duration-300
-                                        ${social.name === 'GitHub' ? 'dark:invert' : ''}
-                                        ${isMobile ? '' : 'md:grayscale md:opacity-70 group-hover:grayscale-0 group-hover:opacity-100'}
-                                    `}
-                                />
-                            </div>
-                            <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
-                                {social.name}
-                            </div>
-                        </motion.a>
-                    ))}
+                    {socialLinks}
                 </motion.div>
             </div>
 
-            {/* Simplified Scroll Indicator */}
+            {/* Optimized Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -230,8 +194,8 @@ export const Hero = () => {
                 className="absolute"
                 style={{
                     bottom: isMobile
-                        ? `max(3rem, calc(50vh - 200px))` // Ensure it doesn't overlap content on small screens
-                        : `max(5rem, calc(20vh - 100px))` // Desktop version with safety margin
+                        ? `max(3rem, calc(50vh - 200px))`
+                        : `max(5rem, calc(20vh - 100px))`
                 }}
             >
                 <div className="text-gray-600 dark:text-gray-400">
@@ -244,7 +208,7 @@ export const Hero = () => {
                                 duration: isMobile ? 2 : 1.5,
                                 repeat: Infinity,
                                 ease: 'easeInOut',
-                                repeatDelay: isMobile ? 0.5 : 0 // Add delay on mobile to reduce CPU usage
+                                repeatDelay: isMobile ? 0.5 : 0
                             }}
                         />
                     </div>

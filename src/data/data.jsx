@@ -18,16 +18,6 @@ export const workHistoryData = [
     },
     {
         id: 2,
-        company: "Data Glacier",
-        role: "Technology Intern",
-        period: "Jul 2022 – Oct 2022",
-        description: [
-            "Led a data analysis project using Python and Jupyter to assess investment opportunities.",
-            "Built a predictive analytics website with Flask and applied machine learning principles to deliver insights."
-        ]
-    },
-    {
-        id: 3,
         company: "Bright Network",
         role: "Technology Intern",
         period: "Jul 2021 – Aug 2021",
@@ -37,7 +27,7 @@ export const workHistoryData = [
         ]
     },
     {
-        id: 4,
+        id: 3,
         company: "Learning Leap Education",
         role: "Programming Instructor",
         period: "Mar 2017 – Mar 2020",

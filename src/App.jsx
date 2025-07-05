@@ -8,7 +8,6 @@ import {WorkHistory} from "./components/work-history.jsx";
 import {Education} from "./components/education.jsx";
 import {GitHubActivityFeed} from "./components/github-activity.jsx";
 import {SpotlightEffect} from "./helper/spotlight.jsx";
-import {CustomCursor} from "./helper/custom-cursor.jsx";
 import {CommandPalette} from "./helper/command-palette.jsx";
 import {FloatingContactButton} from "./components/floating-contact-button.jsx"; // Add this import
 import {Navbar} from "./components/navbar.jsx";
@@ -179,9 +178,6 @@ const App = () => {
     return (
         <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-white font-sans antialiased selection:bg-indigo-500/50">
             <SpotlightEffect theme={theme} />
-            <div className="hidden md:block">
-                <CustomCursor />
-            </div>
             <CommandPalette
                 isOpen={isCommandPaletteOpen}
                 setIsOpen={setIsCommandPaletteOpen}
