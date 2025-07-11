@@ -79,30 +79,10 @@ A modern, interactive personal portfolio website showcasing my journey as a Soft
    npm install
    ```
    
-3**Start the development server**
+3. **Start the development server**
    ```bash
    npm run dev
    ```
-
-### Building for Production
-
-```bash
-# Build the project
-npm run build
-
-# Preview the production build
-npm run preview
-```
-
-## 🎯 Key Features Implementation
-
-### AI Chat Assistant
-The portfolio includes an intelligent chat interface that can answer questions about:
-- Professional experience and skills
-- Project details and technologies used
-- Educational background
-- Contact information and availability
-
 ## 🤝 Contributing
 
 1. Fork the repository
