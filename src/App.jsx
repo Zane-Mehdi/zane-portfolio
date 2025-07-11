@@ -176,8 +176,9 @@ const App = () => {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-white font-sans antialiased selection:bg-indigo-500/50">
-            <SpotlightEffect theme={theme} />
+        <div
+            className="bg-white dark:bg-gray-950 text-gray-900 dark:text-white font-sans antialiased selection:bg-indigo-500/50">
+            <SpotlightEffect theme={theme}/>
             <CommandPalette
                 isOpen={isCommandPaletteOpen}
                 setIsOpen={setIsCommandPaletteOpen}
@@ -191,7 +192,7 @@ const App = () => {
                 currentView={currentView}
             />
 
-            <motion.div className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 origin-left z-[60]" style={{ scaleX }} />
+            <motion.div className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 origin-left z-[60]" style={{scaleX}}/>
             <Navbar
                 theme={theme}
                 toggleTheme={toggleTheme}
@@ -207,77 +208,46 @@ const App = () => {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        onAnimationStart={() => {
-                            // Ensure scroll is at top when animation starts
-                            scrollToTop();
-                            // Disable scroll animations during transition
-                            window.scrollAnimationsDisabled = true;
-                        }}
-                        onAnimationComplete={() => {
-                            // Final scroll reset when animation completes
-                            scrollToTop();
-
-                            // Re-enable scroll animations after transition
-                            setTimeout(() => {
-                                window.scrollAnimationsDisabled = false;
-                                setAllowScrollAnimations(true);
-                            }, 100);
-                        }}
+                        // ... existing animation handlers ...
                     >
                         {currentView === 'home' && (
                             <>
-                                <Hero />
-                                <About />
-                                {/*<Testimonials />*/}
-                                <Skills />
-                                <Projects />
+                                {/* Hero Section */}
+                                <Hero/>
+
+                                {/* Projects Section */}
+                                <Projects/>
+
+                                {/* Skills Section */}
+                                <Skills/>
+
+                                {/*/!* About Section *!/*/}
+                                {/*<About/>*/}
+
+                                {/* Work History Section */}
+                                <WorkHistory forceVisible={!allowScrollAnimations}/>
+
+                                {/* Education Section */}
+                                <Education forceVisible={!allowScrollAnimations}/>
+
+
+                                {/* GitHub Activity Section */}
+                                <GitHubActivityFeed forceVisible={!allowScrollAnimations}/>
+
+                                {/* Resume Section */}
+                                <Resume forceVisible={!allowScrollAnimations}/>
                             </>
                         )}
-                        {currentView === 'journey' && (
-                            <div className="pt-24 min-h-screen">
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.3, delay: 0.1 }}
-                                    style={{ willChange: 'auto' }}
-                                >
-                                    <WorkHistory forceVisible={!allowScrollAnimations} />
-                                </motion.div>
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.3, delay: 0.2 }}
-                                    style={{ willChange: 'auto' }}
-                                >
-                                    <Education forceVisible={!allowScrollAnimations} />
-                                </motion.div>
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.3, delay: 0.3 }}
-                                    style={{ willChange: 'auto' }}
-                                >
-                                    <GitHubActivityFeed forceVisible={!allowScrollAnimations} />
-                                </motion.div>
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.3, delay: 0.4 }}
-                                    style={{ willChange: 'auto' }}
-                                >
-                                    <Resume forceVisible={!allowScrollAnimations} />
-                                </motion.div>
-                            </div>
-                        )}
+
                         {currentView === 'contact' && (
                             <div className="pt-24">
-                                <Contact />
+                                <Contact/>
                             </div>
                         )}
                     </motion.div>
                 </AnimatePresence>
             </main>
-            <Footer />
+            <Footer/>
         </div>
     );
 };

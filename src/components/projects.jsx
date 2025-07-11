@@ -24,11 +24,32 @@ const ProjectModal = ({ project, onClose }) => {
           <div className="p-8">
             <motion.h2 className="text-3xl font-bold mb-2 font-display">{project.title}</motion.h2>
             <motion.h5 className="text-lg text-indigo-500 mb-4">{project.category}</motion.h5>
+
+            {/* Tags Section */}
+            {project.tags && project.tags.length > 0 && (
+                <motion.div
+                    className="mb-6"
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0, transition: {delay: 0.1}}}
+                >
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, index) => (
+                        <span
+                            key={index}
+                            className="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-200 text-sm font-medium px-3 py-1 rounded-full border border-indigo-200 dark:border-indigo-700"
+                        >
+                      {tag}
+                    </span>
+                    ))}
+                  </div>
+                </motion.div>
+            )}
+
             <motion.div initial={{opacity: 0, y: 20}} animate={{opacity: 1, y: 0, transition: {delay: 0.2}}}>
-              <p className="text-gray-700 dark:text-gray-300 space-y-4">{project.details}</p>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{project.details}</p>
             </motion.div>
 
-            {/* --- NEW: Links Section --- */}
+            {/* Links Section */}
             <div className="mt-8 flex items-center justify-center gap-4">
               <motion.a
                   href={project.githubUrl}

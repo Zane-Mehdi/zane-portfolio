@@ -52,17 +52,101 @@ export const educationData = [
 
 
 export const skillsData = [
-    { name: 'React', icon: 'https://cdn.worldvectorlogo.com/logos/react-2.svg', category: 'Frontend' },
-    { name: 'JavaScript', icon: 'https://cdn.worldvectorlogo.com/logos/javascript-1.svg', category: 'Language' },
-    { name: 'Node.js', icon: 'https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg', category: 'Backend' },
-    { name: 'Java', icon: 'https://cdn.worldvectorlogo.com/logos/java-4.svg', category: 'Backend' },
-    { name: 'Spring Boot', icon: 'https://cdn.worldvectorlogo.com/logos/spring-3.svg', category: 'Backend' },
-    { name: 'Kotlin', icon: 'https://cdn.worldvectorlogo.com/logos/kotlin.svg', category: 'Backend' },
-    { name: 'React Native', icon: 'https://cdn.worldvectorlogo.com/logos/react-native-1.svg', category: 'Backend' },
-    { name: 'TailwindCSS', icon: 'https://cdn.worldvectorlogo.com/logos/tailwindcss.svg', category: 'CSS' },
-    { name: 'Framer Motion', icon: 'https://cdn.worldvectorlogo.com/logos/framer-motion.svg', category: 'Animation' },
-    { name: 'Vite', icon: 'https://cdn.worldvectorlogo.com/logos/vitejs.svg', category: 'Build Tool' },
-    { name: 'Git', icon: 'https://cdn.worldvectorlogo.com/logos/git-icon.svg', category: 'Tool' },
+    {
+        name: 'React',
+        icon: 'https://cdn.worldvectorlogo.com/logos/react-2.svg',
+        category: 'Frontend',
+        proficiency: 85,
+        level: 'Advanced',
+        experience: '2+ years'
+    },
+    {
+        name: 'JavaScript',
+        icon: 'https://cdn.worldvectorlogo.com/logos/javascript-1.svg',
+        category: 'Language',
+        proficiency: 90,
+        level: 'Expert',
+        experience: '3+ years'
+    },
+    {
+        name: 'Java',
+        icon: 'https://cdn.worldvectorlogo.com/logos/java-4.svg',
+        category: 'Backend',
+        proficiency: 85,
+        level: 'Advanced',
+        experience: '2+ years'
+    },
+    {
+        name: 'Spring Boot',
+        icon: 'https://cdn.worldvectorlogo.com/logos/spring-3.svg',
+        category: 'Backend',
+        proficiency: 80,
+        level: 'Advanced',
+        experience: '1.5+ years'
+    },
+    {
+        name: 'Node.js',
+        icon: 'https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg',
+        category: 'Backend',
+        proficiency: 75,
+        level: 'Intermediate',
+        experience: '2+ year'
+    },
+    {
+        name: 'Kotlin',
+        icon: 'https://cdn.worldvectorlogo.com/logos/kotlin.svg',
+        category: 'Mobile',
+        proficiency: 70,
+        level: 'Intermediate',
+        experience: '1+ year'
+    },
+    {   name: 'React Native',
+        icon: 'https://cdn.worldvectorlogo.com/logos/react-native-1.svg',
+        category: 'Mobile',
+        proficiency: 70,
+        level: 'Intermediate',
+        experience: '1+ year'
+    },
+    {
+        name: 'Python',
+        icon: 'https://cdn.worldvectorlogo.com/logos/python-5.svg',
+        category: 'Language',
+        proficiency: 80,
+        level: 'Advanced',
+        experience: '3+ years'
+    },
+    {
+        name: 'TailwindCSS',
+        icon: 'https://cdn.worldvectorlogo.com/logos/tailwindcss.svg',
+        category: 'CSS',
+        proficiency: 85,
+        level: 'Advanced',
+        experience: '2+ years'
+    },
+    {
+        name: 'Framer Motion',
+        icon: 'https://cdn.worldvectorlogo.com/logos/framer-motion.svg',
+        category: 'Animation',
+        proficiency: 75,
+        level: 'Intermediate',
+        experience: '1+ year'
+    },
+    {
+        name: 'Docker',
+        icon: 'https://cdn.worldvectorlogo.com/logos/docker.svg',
+        category: 'DevOps',
+        proficiency: 70,
+        level: 'Intermediate',
+        experience: '1+ year'
+    },
+    {
+        name: 'Git',
+        icon: 'https://cdn.worldvectorlogo.com/logos/git-icon.svg',
+        category: 'Tool',
+        proficiency: 90,
+        level: 'Expert',
+        experience: '3+ years'
+    }
 ];
 
 export const testimonialsData = [
@@ -79,6 +163,16 @@ export const socialLinksData = [
 
 export const projectData = [
     {
+        id: 7,
+        title: 'Game Logger',
+        category: 'Full Stack Development',
+        image: './game-logger.png',
+        size: 'small',
+        details: "A modern, full-stack web application for tracking your gaming journey. Built with React, Node.js, Express, and Supabase, Game Logger helps you organize your game library, discover new titles, and get AI-powered recommendations.",
+        tags: ['React', 'Node.js','Gemini','CSS', 'Vite', 'Express.js', 'Supabase'],
+        githubUrl: 'https://github.com/Zane-Mehdi/game-logger'
+    },
+    {
         id: 6,
         title: 'Tour Bi',
         category: 'Mobile Development',
@@ -86,8 +180,8 @@ export const projectData = [
         size: 'small',
         details: "A journey planning app that uses a bicycle hire scheme for tourists. Built with Flutter, it helps users find bike stations, plan routes, and see real-time availability.",
         tags: ['Flutter'],
-        githubUrl: 'https://github.com/zane-mehdi/tour-bi-app', // Example URL
-        videoUrl: 'https://www.youtube.com/watch?v=t1VqzWKwHyQ&feature=youtu.be' // Example URL
+        githubUrl: 'https://github.com/zane-mehdi/tour-bi-app',
+        videoUrl: 'https://www.youtube.com/watch?v=t1VqzWKwHyQ&feature=youtu.be'
     },
     {
         id: 1,
@@ -97,7 +191,7 @@ export const projectData = [
         size: 'small',
         details: "A scroller game that asks GCSE-style questions mid-game, combining gameplay with learning. Built using Python and PyGame as part of an A-Level project.",
         tags: ['Python', 'PyGame'],
-        githubUrl: 'https://github.com/zane-mehdi/scroller-survival', // Example URL
+        githubUrl: 'https://github.com/zane-mehdi/scroller-survival',
     },
     {
         id: 2,
@@ -107,7 +201,7 @@ export const projectData = [
         size: 'small',
         details: "An interactive chatbot built using Python and the ChatterBot library to help King's College London students get answers to common service-related queries. Frontend uses HTML and CSS.",
         tags: ['Python'],
-        githubUrl: 'https://github.com/zane-mehdi/kcl-chatbot', // Example URL
+        githubUrl: 'https://github.com/zane-mehdi/kcl-chatbot',
     },
     {
         id: 3,
@@ -117,7 +211,7 @@ export const projectData = [
         size: 'small',
         details: "A football trivia game based on team statistics from the Premier League. Players guess whether one team ranks higher or lower than another. Built with Javascript, HTML, and CSS.",
         tags: ['Javascript', 'HTML', 'CSS'],
-        githubUrl: 'https://github.com/zane-mehdi/pl-higher-lower', // Example URL
+        githubUrl: 'https://github.com/zane-mehdi/pl-higher-lower',
     },
     {
         id: 4,
@@ -127,7 +221,7 @@ export const projectData = [
         size: 'small',
         details: "A web application that visualises city traffic incidents on a live map. Markers display real-time reports using map APIs. Built with Python, HTML, and CSS.",
         tags: ['Python', 'HTML', 'CSS'],
-        githubUrl: 'https://github.com/zane-mehdi/traffic-system', // Example URL
+        githubUrl: 'https://github.com/zane-mehdi/traffic-system',
     },
     {
         id: 5,
@@ -137,6 +231,6 @@ export const projectData = [
         size: 'small',
         details: "Created an AI agent using machine learning techniques to play Pacman and aim for high scores. This project demonstrated reinforcement learning concepts using Python.",
         tags: ['Python'],
-        githubUrl: 'https://github.com/zane-mehdi/pacman-ai', // Example URL
+        githubUrl: 'https://github.com/zane-mehdi/pacman-ai',
     }
 ];

@@ -41,7 +41,6 @@ export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
 
     const navLinks = [
         { name: 'Home', view: 'home' },
-        { name: 'Journey', view: 'journey' },
         { name: 'Contact', view: 'contact', isAI: true }
     ];
 

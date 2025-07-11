@@ -60,7 +60,6 @@ export const About = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={containerVariants}
-                className="grid md:grid-cols-2 gap-12 items-center"
             >
                 <motion.div variants={textVariants}>
                     <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white font-display">
@@ -87,8 +86,8 @@ export const About = () => {
                     }}
                     className="space-y-6"
                 >
-                    <StatCard value="1+" label="Years of Experience" delay={0} />
-                    <StatCard value="10+" label="Projects Completed" delay={0.1} />
+                    {/*<StatCard value="1+" label="Years of Experience" delay={0} />*/}
+                    {/*<StatCard value="10+" label="Projects Completed" delay={0.1} />*/}
                 </motion.div>
             </motion.div>
         </section>
