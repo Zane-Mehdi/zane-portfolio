@@ -1,4 +1,5 @@
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import Ribbons from "../components/Ribbons.jsx";
 
 export const CustomCursor = () => {
     const followerRef = useRef(null);

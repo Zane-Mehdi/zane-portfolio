@@ -3,6 +3,13 @@ import { motion } from 'framer-motion';
 import { useState, useEffect, useMemo } from 'react';
 import "../hero.css";
 import {getAnimationVariants, usePerformance} from "../useHooks/usePerformance.jsx";
+import SplitText from "./SplitText.jsx";
+import TextType from "./TextType.jsx";
+import FloatingLines from "./FloatingLines.jsx";
+import ShinyText from "./ShinyText.jsx";
+import RotatingText from "./RotatingText.jsx";
+import Shuffle from './Shuffle.jsx';
+import GlassSurface from "./GlassSurface.jsx";
 
 export const Hero = () => {
     const { isLowEnd, isMobile, fps } = usePerformance();
@@ -57,34 +64,47 @@ export const Hero = () => {
     }, [isMobile, isLowEnd]);
 
     // Memoize social links to prevent re-renders
-    const socialLinks = useMemo(() => socialLinksData.map((social) => (
-        <motion.a
-            key={social.name}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative"
-            whileHover={isLowEnd ? {} : (isMobile ? {} : { y: -5, scale: 1.1 })}
-            transition={isLowEnd ? {} : (isMobile ? {} : { type: 'spring', stiffness: 300 })}
-        >
-            <div className="relative p-3 rounded-full bg-white/70 dark:bg-gray-800/70 shadow-lg backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 group-hover:shadow-xl transition-all duration-300">
-                <img
-                    src={social.icon}
-                    alt={`${social.name} logo`}
-                    className={`
+    const socialLinks = useMemo(() =>
+            socialLinksData.map((social) => (
+                <motion.a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative"
+                    whileHover={isLowEnd ? {} : (isMobile ? {} : { y: -5, scale: 1.1 })}
+                    transition={isLowEnd ? {} : (isMobile ? {} : { type: 'spring', stiffness: 300 })}
+                >
+                    {/* GlassSurface wrapper for the icon */}
+                    <GlassSurface
+                        width={48}              // Icon container size
+                        height={48}
+                        borderRadius={999}      // Makes it a circle
+                        backgroundOpacity={0.18}
+                        saturation={1.4}
+                        className="shadow-lg backdrop-blur-md transition-all duration-300 group-hover:shadow-xl"
+                    >
+                        <img
+                            src={social.icon}
+                            alt={`${social.name} logo`}
+                            className={`
                         h-6 w-6 transition-all duration-300
                         ${social.name === 'GitHub' ? 'dark:invert' : ''}
                         ${isMobile || isLowEnd ? '' : 'md:grayscale md:opacity-70 group-hover:grayscale-0 group-hover:opacity-100'}
                     `}
-                />
-            </div>
-            {!isLowEnd && (
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
-                    {social.name}
-                </div>
-            )}
-        </motion.a>
-    )), [isMobile, isLowEnd]);
+                        />
+                    </GlassSurface>
+
+                    {/* Tooltip */}
+                    {!isLowEnd && (
+                        <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
+                            {social.name}
+                        </div>
+                    )}
+                </motion.a>
+            )),
+        [isMobile, isLowEnd]
+    );
 
     // For low-end devices, render a simpler version
     if (isLowEnd) {
@@ -141,86 +161,40 @@ export const Hero = () => {
             id="hero"
             className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden animated-gradient"
         >
-            {/* Static Grid Pattern */}
-            <div
-                className="absolute inset-0 opacity-20 dark:opacity-10"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(rgba(165, 180, 252, 0.2) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(165, 180, 252, 0.2) 1px, transparent 1px)
-                    `,
-                    backgroundSize: isMobile ? '40px 40px' : '60px 60px',
-                }}
-            />
-
-            {/* Animated Orbs */}
-            <motion.div
-                className="absolute top-20 left-10 w-32 h-32 md:w-48 md:h-48 bg-purple-300/20 dark:bg-purple-800/10 rounded-full blur-xl"
-                animate={{
-                    y: [0, -20, 0],
-                    scale: [1, 1.1, 1]
-                }}
-                transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                }}
-            />
-            <motion.div
-                className="absolute top-1/2 right-16 w-24 h-24 md:w-36 md:h-36 bg-indigo-300/20 dark:bg-indigo-800/10 rounded-full blur-xl"
-                animate={{
-                    y: [0, 20, 0],
-                    scale: [1, 1.05, 1]
-                }}
-                transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1
-                }}
-            />
-            <motion.div
-                className="absolute bottom-20 left-20 w-20 h-20 md:w-32 md:h-32 bg-slate-300/20 dark:bg-slate-800/10 rounded-full blur-xl"
-                animate={{
-                    y: [0, -15, 0],
-                    scale: [1, 1.08, 1]
-                }}
-                transition={{
-                    duration: 7,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 2
-                }}
-            />
+            {/* Floating lines background */}
+            <div className="absolute inset-0 z-0 opacity-90">
+                <FloatingLines
+                    enabledWaves={['top', 'middle', 'bottom']}
+                    lineCount={[7, 7, 7]}
+                    lineDistance={[8, 6, 4]}
+                    bendRadius={5.0}
+                    bendStrength={-5}
+                    interactive={true}
+                    parallax={true}
+                />
+            </div>
 
             {/* Main Content */}
             <div className="relative z-10">
-                <motion.h1
-                    variants={titleAnimation.titleVariants}
-                    initial="hidden"
-                    animate="visible"
+                <TextType
+                    text={["Welcome to my website ", "Hi Hello", "Zane Mehdi"]}
+                    typingSpeed={75}
+                    pauseDuration={1500}
+                    showCursor={true}
+                    cursorCharacter="_"
+                    loop={false}
                     className="text-6xl md:text-8xl font-extrabold text-gray-900 dark:text-white tracking-tighter font-display"
-                    aria-label={title}
-                >
-                    {title.split("").map((char, index) => (
-                        <motion.span
-                            key={index}
-                            variants={titleAnimation.charVariants}
-                            className="inline-block"
-                        >
-                            {char === " " ? "\u00A0" : char}
-                        </motion.span>
-                    ))}
-                </motion.h1>
+                />
 
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1, ease: 'easeOut' }}
-                    className="mt-4 text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 font-medium"
+                    transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+                    className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xl md:text-2xl text-white dark:text-white font-medium"
                 >
                     Software Engineer
                 </motion.p>
+
 
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
@@ -241,12 +215,12 @@ export const Hero = () => {
                 </motion.div>
             </div>
 
-            {/* Optimized Scroll Indicator */}
+            {/* Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1.5, ease: 'easeOut' }}
-                className="absolute"
+                className="absolute z-10"
                 style={{
                     bottom: isMobile
                         ? `max(3rem, calc(50vh - 200px))`

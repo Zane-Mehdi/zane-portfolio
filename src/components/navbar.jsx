@@ -1,5 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import GlassSurface from "./GlassSurface.jsx";
+import ShinyText from "./ShinyText.jsx";
 
 export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -59,60 +61,79 @@ export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="fixed top-0 left-0 right-0 z-50 bg-white/30 dark:bg-gray-950/30 backdrop-blur-lg border-b border-white/20 dark:border-gray-800/20"
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
             >
-                <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                    {/* Logo */}
-                    <button
-                        onClick={() => handleNavClick('home')}
-                        className="text-2xl font-bold text-gray-900 dark:text-white font-display"
-                    >
-                        Zane Mehdi
-                    </button>
+                <GlassSurface
+                    width="100%"
+                    height={64}
+                    borderRadius={999}
+                    backgroundOpacity={0.18}
+                    saturation={1.4}
+                    className="max-w-5xl"
+                >
+                    <div className="flex w-full items-center justify-between px-4">
+                        {/* Logo */}
+                        <button
+                            onClick={() => handleNavClick("home")}
+                            className="text-2xl font-bold text-gray-900 dark:text-white font-display"
+                        >
+                            <ShinyText
+                                text="Zane Mehdi"
+                                disabled={false}
+                                speed={3}
+                                className='custom-class'
+                            />
+                        </button>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-8">
-                        {navLinks.map(link => (
+                        {/* Desktop Navigation */}
+                        <div className="hidden md:flex items-center space-x-8">
+                            {navLinks.map((link) => (
+                                <button
+                                    key={link.name}
+                                    onClick={() => setCurrentView(link.view)}
+                                    className={`relative flex items-center text-gray-700 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors ${
+                                        currentView === link.view
+                                            ? "text-indigo-500 dark:text-indigo-400"
+                                            : ""
+                                    }`}
+                                >
+                                    {link.name}
+                                    {link.isAI && (
+                                        <motion.span
+                                            className="ml-2 w-2 h-2 rounded-full bg-indigo-500"
+                                            animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
+                                            transition={{
+                                                duration: 1.5,
+                                                repeat: Infinity,
+                                                ease: "easeInOut",
+                                            }}
+                                        />
+                                    )}
+                                    {currentView === link.view && (
+                                        <motion.div
+                                            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-indigo-500"
+                                            layoutId="underline"
+                                        />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Mobile controls */}
+                        <div className="flex items-center space-x-2">
+                            {/* Theme Toggle (if you re-enable it) */}
+                            {/* <button onClick={toggleTheme} ...>{theme === 'dark' ? <Sun /> : <Moon />}</button> */}
+
                             <button
-                                key={link.name}
-                                onClick={() => setCurrentView(link.view)}
-                                className={`relative flex items-center text-gray-700 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors ${currentView === link.view ? 'text-indigo-500 dark:text-indigo-400' : ''}`}
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                className="md:hidden p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
                             >
-                                {link.name}
-                                {link.isAI && (
-                                    <motion.span
-                                        className="ml-2 w-2 h-2 rounded-full bg-indigo-500"
-                                        animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
-                                        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                                    />
-                                )}
-                                {currentView === link.view && (
-                                    <motion.div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-indigo-500" layoutId="underline" />
-                                )}
+                                {isMobileMenuOpen ? <Close /> : <Hamburger />}
                             </button>
-                        ))}
+                        </div>
                     </div>
-
-                    {/* Mobile & Desktop Controls */}
-                    <div className="flex items-center space-x-2">
-                        {/* Theme Toggle */}
-                        <button
-                            onClick={toggleTheme}
-                            className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-                        >
-                            {theme === 'dark' ? <Sun /> : <Moon />}
-                        </button>
-
-                        {/* Mobile Menu Button */}
-                        <button
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="md:hidden p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-                        >
-                            {isMobileMenuOpen ? <Close /> : <Hamburger />}
-                        </button>
-                    </div>
-                </div>
+                </GlassSurface>
             </motion.nav>
 
             {/* Mobile Menu Overlay */}

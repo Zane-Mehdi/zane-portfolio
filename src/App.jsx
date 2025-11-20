@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import {About} from "./components/about.jsx";
 import {Hero} from "./components/hero.jsx";
@@ -15,6 +15,12 @@ import {Resume} from "./components/resume.jsx";
 import {Contact} from "./components/contact.jsx";
 import {Footer} from "./components/footer.jsx";
 import {Projects} from "./components/projects.jsx";
+import GradualBlur from "./components/GradualBlur.jsx";
+import ClickSpark from "./components/ClickSpark.jsx";
+import Ribbons from "./components/Ribbons.jsx";
+import CardSwap, {Card} from "./components/CardSwap.jsx";
+import MagicBento from "./components/MagicBento.jsx";
+import GlassSurface from "./components/GlassSurface.jsx";
 
 const App = () => {
     const [theme, setTheme] = useState('dark');
@@ -174,11 +180,21 @@ const App = () => {
             transition: { duration: 0.2 }
         }
     };
+    const ribbonColors = useMemo(() => {
+        return theme === "dark"
+            ? [
+                "#818CF8", // indigo-400
+            ]
+            : [
+                "#0EA5E9",
+            ];
+    }, [theme]);
+
 
     return (
         <div
             className="bg-white dark:bg-gray-950 text-gray-900 dark:text-white font-sans antialiased selection:bg-indigo-500/50">
-            <SpotlightEffect theme={theme}/>
+            {/*<SpotlightEffect theme={theme}/>*/}
             <CommandPalette
                 isOpen={isCommandPaletteOpen}
                 setIsOpen={setIsCommandPaletteOpen}
@@ -208,11 +224,9 @@ const App = () => {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        // ... existing animation handlers ...
                     >
                         {currentView === 'home' && (
                             <>
-                                {/* Hero Section */}
                                 <Hero/>
 
                                 {/* Projects Section */}
@@ -230,12 +244,9 @@ const App = () => {
                                 {/* Education Section */}
                                 <Education forceVisible={!allowScrollAnimations}/>
 
-
-                                {/* GitHub Activity Section */}
-                                <GitHubActivityFeed forceVisible={!allowScrollAnimations}/>
-
                                 {/* Resume Section */}
                                 <Resume forceVisible={!allowScrollAnimations}/>
+                                    
                             </>
                         )}
 
@@ -249,6 +260,7 @@ const App = () => {
             </main>
             <Footer/>
         </div>
+        
     );
 };
 

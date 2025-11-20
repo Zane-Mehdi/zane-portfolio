@@ -111,7 +111,7 @@ export const Skills = () => {
                     <div className="flex justify-center max-w-md mx-auto">
                         <div
                             className="p-6 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                            <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">1.5+</h3>
+                            <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">2+</h3>
                             <p className="text-gray-600 dark:text-gray-400">Years Professional Experience</p>
                         </div>
                     </div>

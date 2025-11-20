@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    // whatever is already there, e.g.:
+    "jsx": "react-jsx",
+    "types": ["vite/client"],
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}

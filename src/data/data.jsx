@@ -116,22 +116,6 @@ export const skillsData = [
         experience: '3+ years'
     },
     {
-        name: 'TailwindCSS',
-        icon: 'https://cdn.worldvectorlogo.com/logos/tailwindcss.svg',
-        category: 'CSS',
-        proficiency: 85,
-        level: 'Advanced',
-        experience: '2+ years'
-    },
-    {
-        name: 'Framer Motion',
-        icon: 'https://cdn.worldvectorlogo.com/logos/framer-motion.svg',
-        category: 'Animation',
-        proficiency: 75,
-        level: 'Intermediate',
-        experience: '1+ year'
-    },
-    {
         name: 'Docker',
         icon: 'https://cdn.worldvectorlogo.com/logos/docker.svg',
         category: 'DevOps',
