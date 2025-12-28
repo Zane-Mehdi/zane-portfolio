@@ -70,7 +70,7 @@ const App = () => {
         } else if (prefersDark) {
             setTheme('dark');
         } else {
-            setTheme('light');
+            // setTheme('light');
         }
 
         // Add scroll listener to re-enable animations after user scrolls
@@ -117,7 +117,7 @@ const App = () => {
     }, [theme]);
 
     const toggleTheme = () => {
-        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+        setTheme("dark");
     };
 
     // Enhanced view change handler with scroll animation control
