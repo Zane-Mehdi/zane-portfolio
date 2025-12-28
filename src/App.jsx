@@ -66,7 +66,7 @@ const App = () => {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         if (storedTheme) {
-            setTheme(storedTheme);
+            setTheme("dark");
         } else if (prefersDark) {
             setTheme('dark');
         } else {
