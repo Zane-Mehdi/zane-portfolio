@@ -35,9 +35,7 @@ export const Contact = () => {
 
         try {
             // Use Netlify function in production, local server in development
-            const apiEndpoint = import.meta.env.PROD
-                ? '/.netlify/functions/chat'
-                : `${API_BASE_URL}/api/chat`;
+            const apiEndpoint = '/.netlify/functions/chat';
 
             const response = await fetch(apiEndpoint, {
                 method: 'POST',
@@ -46,7 +44,8 @@ export const Contact = () => {
                 },
                 body: JSON.stringify({
                     message: currentMessage,
-                    chatHistory: messages.slice(-5) // Send last 5 messages for context
+                    // chatHistory is ignored by your current function, but safe to keep
+                    chatHistory: messages.slice(-5)
                 }),
                 signal: controller.signal
             });
