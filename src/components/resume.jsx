@@ -28,7 +28,7 @@ export const Resume = () => (
                     id="download-cv-link"
                     href="./Zane-Mehdi-CV.pdf"
                     download="Zane-Mehdi-CV.pdf"
-                    className="inline-block mt-8 px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg"
+                    className="inline-block mt-8 px-8 py-3 bg-cyan-600 text-white font-bold rounded-lg"
                     whileHover={{scale: 1.05, boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.5)'}}
                     whileTap={{scale: 0.95}}
                 >

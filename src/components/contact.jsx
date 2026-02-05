@@ -121,7 +121,7 @@ export const Contact = () => {
                     <div ref={chatContainerRef} className="flex-grow p-6 space-y-4 overflow-y-auto">
                         {messages.map((msg, index) => (
                             <div key={index} className={`flex ${msg.from === 'ai' ? 'justify-start' : 'justify-end'}`}>
-                                <div className={`max-w-[80%] p-3 rounded-lg ${msg.from === 'ai' ? 'bg-gray-200 dark:bg-gray-700 text-left' : 'bg-indigo-500 text-white text-left'}`}>
+                                <div className={`max-w-[80%] p-3 rounded-lg ${msg.from === 'ai' ? 'bg-gray-200 dark:bg-gray-700 text-left' : 'bg-cyan-500 text-white text-left'}`}>
                                     {msg.text}
                                 </div>
                             </div>
@@ -145,12 +145,12 @@ export const Contact = () => {
                             onChange={(e) => setUserInput(e.target.value)}
                             placeholder="Ask me anything..."
                             maxLength={1000}
-                            className="flex-grow p-3 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                            className="flex-grow p-3 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-cyan-500 outline-none transition"
                         />
                         <button
                             type="submit"
                             disabled={isLoading || !userInput.trim()}
-                            className="p-3 bg-indigo-600 text-white rounded-lg disabled:bg-indigo-400 hover:bg-indigo-700 transition-colors"
+                            className="p-3 bg-cyan-600 text-white rounded-lg disabled:bg-cyan-400 hover:bg-cyan-700 transition-colors"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13"/>

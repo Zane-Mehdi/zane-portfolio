@@ -19,7 +19,7 @@ const StatCard = memo(({ value, label, delay = 0 }) => {
             }}
             className="p-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
         >
-            <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 font-display">
+            <h3 className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 font-display">
                 {value}
             </h3>
             <p className="text-gray-700 dark:text-gray-300">{label}</p>

@@ -43,7 +43,7 @@ export const CommandPalette = ({ isOpen, setIsOpen, setCurrentView, toggleTheme 
                         </div>
                         <div className="border-t border-gray-200 dark:border-gray-700 p-2">
                             {commands.map(cmd => (
-                                <button key={cmd.name} onClick={() => { cmd.action(); setIsOpen(false); }} className="w-full text-left flex items-center p-3 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors">
+                                <button key={cmd.name} onClick={() => { cmd.action(); setIsOpen(false); }} className="w-full text-left flex items-center p-3 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-900/50 transition-colors">
                                     <span className="mr-4">{cmd.icon}</span>
                                     <span>{cmd.name}</span>
                                 </button>

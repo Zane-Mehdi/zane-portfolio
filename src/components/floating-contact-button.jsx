@@ -36,13 +36,13 @@ export const FloatingContactButton = ({ onContactClick, currentView }) => {
                 {showPulse && (
                     <>
                         <motion.div
-                            className="absolute inset-0 rounded-full bg-indigo-500/30 pointer-events-none"
+                            className="absolute inset-0 rounded-full bg-cyan-500/30 pointer-events-none"
                             initial={{ scale: 1, opacity: 0.8 }}
                             animate={{ scale: 2, opacity: 0 }}
                             transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
                         />
                         <motion.div
-                            className="absolute inset-0 rounded-full bg-indigo-500/20 pointer-events-none"
+                            className="absolute inset-0 rounded-full bg-cyan-500/20 pointer-events-none"
                             initial={{ scale: 1, opacity: 0.6 }}
                             animate={{ scale: 2.5, opacity: 0 }}
                             transition={{ duration: 2, repeat: Infinity, delay: 0.5, ease: "easeOut" }}
@@ -69,7 +69,7 @@ export const FloatingContactButton = ({ onContactClick, currentView }) => {
                 onClick={onContactClick}
                 onHoverStart={() => setIsHovered(true)}
                 onHoverEnd={() => setIsHovered(false)}
-                className="relative w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
+                className="relative w-16 h-16 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
             >
@@ -128,7 +128,7 @@ export const FloatingContactButton = ({ onContactClick, currentView }) => {
                         {[...Array(3)].map((_, i) => (
                             <motion.div
                                 key={i}
-                                className="absolute w-1 h-1 bg-indigo-400 rounded-full pointer-events-none"
+                                className="absolute w-1 h-1 bg-cyan-400 rounded-full pointer-events-none"
                                 initial={{
                                     x: 32,
                                     y: 32,

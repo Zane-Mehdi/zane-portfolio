@@ -2,9 +2,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import GlassSurface from "./GlassSurface.jsx";
 import ShinyText from "./ShinyText.jsx";
+import { usePerformance } from "../useHooks/usePerformance.jsx";
 
 export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { performanceMode, setPerformanceMode } = usePerformance();
+    const reduceMotionEnabled = performanceMode === 'low';
 
     const Sun = () => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>);
     const Moon = () => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>);
@@ -45,6 +48,10 @@ export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
         { name: 'Home', view: 'home' },
         { name: 'Contact', view: 'contact', isAI: true }
     ];
+
+    const toggleReduceMotion = () => {
+        setPerformanceMode(reduceMotionEnabled ? 'auto' : 'low');
+    };
 
     const handleNavClick = (view) => {
         // Close mobile menu first
@@ -92,16 +99,16 @@ export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
                                 <button
                                     key={link.name}
                                     onClick={() => setCurrentView(link.view)}
-                                    className={`relative flex items-center text-gray-700 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors ${
+                                    className={`relative flex items-center text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors ${
                                         currentView === link.view
-                                            ? "text-indigo-500 dark:text-indigo-400"
+                                            ? "text-cyan-500 dark:text-cyan-400"
                                             : ""
                                     }`}
                                 >
                                     {link.name}
                                     {link.isAI && (
                                         <motion.span
-                                            className="ml-2 w-2 h-2 rounded-full bg-indigo-500"
+                                            className="ml-2 w-2 h-2 rounded-full bg-cyan-500"
                                             animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
                                             transition={{
                                                 duration: 1.5,
@@ -112,12 +119,33 @@ export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
                                     )}
                                     {currentView === link.view && (
                                         <motion.div
-                                            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-indigo-500"
+                                            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-cyan-500"
                                             layoutId="underline"
                                         />
                                     )}
                                 </button>
                             ))}
+
+                            <button
+                                type="button"
+                                onClick={toggleReduceMotion}
+                                aria-pressed={reduceMotionEnabled}
+                                className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors"
+                                title="Reduce motion"
+                            >
+                                <span>Reduce motion</span>
+                                <span
+                                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                                        reduceMotionEnabled ? 'bg-cyan-500' : 'bg-gray-300 dark:bg-gray-700'
+                                    }`}
+                                >
+                                    <span
+                                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                                            reduceMotionEnabled ? 'translate-x-4' : 'translate-x-1'
+                                        }`}
+                                    />
+                                </span>
+                            </button>
                         </div>
 
                         {/* Mobile controls */}
@@ -170,15 +198,15 @@ export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
                                     onClick={() => handleNavClick(link.view)}
                                     className={`flex items-center justify-between py-4 px-2 text-left text-lg font-medium transition-colors border-b border-gray-200 dark:border-gray-800 ${
                                         currentView === link.view
-                                            ? 'text-indigo-500 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400'
+                                            ? 'text-cyan-500 dark:text-cyan-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400'
                                     }`}
                                 >
                                     <span className="flex items-center">
                                         {link.name}
                                         {link.isAI && (
                                             <motion.span
-                                                className="ml-2 w-2 h-2 rounded-full bg-indigo-500"
+                                                className="ml-2 w-2 h-2 rounded-full bg-cyan-500"
                                                 animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
                                                 transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
                                             />
@@ -186,12 +214,32 @@ export const Navbar = ({ theme, toggleTheme, currentView, setCurrentView }) => {
                                     </span>
                                     {currentView === link.view && (
                                         <motion.div
-                                            className="w-2 h-2 rounded-full bg-indigo-500"
+                                            className="w-2 h-2 rounded-full bg-cyan-500"
                                             layoutId="mobileIndicator"
                                         />
                                     )}
                                 </motion.button>
                             ))}
+
+                            <button
+                                type="button"
+                                onClick={toggleReduceMotion}
+                                aria-pressed={reduceMotionEnabled}
+                                className="mt-6 flex items-center justify-between rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors"
+                            >
+                                <span>Reduce motion</span>
+                                <span
+                                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                                        reduceMotionEnabled ? 'bg-cyan-500' : 'bg-gray-300 dark:bg-gray-700'
+                                    }`}
+                                >
+                                    <span
+                                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                                            reduceMotionEnabled ? 'translate-x-4' : 'translate-x-1'
+                                        }`}
+                                    />
+                                </span>
+                            </button>
                         </div>
                     </motion.div>
                 )}

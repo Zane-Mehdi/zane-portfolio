@@ -23,7 +23,7 @@ const ProjectModal = ({ project, onClose }) => {
           <img src={project.image} alt={project.title} className="w-full h-auto md:h-96 object-cover" />
           <div className="p-8">
             <motion.h2 className="text-3xl font-bold mb-2 font-display">{project.title}</motion.h2>
-            <motion.h5 className="text-lg text-indigo-500 mb-4">{project.category}</motion.h5>
+            <motion.h5 className="text-lg text-cyan-500 mb-4">{project.category}</motion.h5>
 
             {/* Tags Section */}
             {project.tags && project.tags.length > 0 && (
@@ -36,7 +36,7 @@ const ProjectModal = ({ project, onClose }) => {
                     {project.tags.map((tag, index) => (
                         <span
                             key={index}
-                            className="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-200 text-sm font-medium px-3 py-1 rounded-full border border-indigo-200 dark:border-indigo-700"
+                            className="bg-cyan-100 dark:bg-cyan-900/50 text-cyan-800 dark:text-cyan-200 text-sm font-medium px-3 py-1 rounded-full border border-cyan-200 dark:border-cyan-700"
                         >
                       {tag}
                     </span>
@@ -68,7 +68,7 @@ const ProjectModal = ({ project, onClose }) => {
                       href={project.videoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg"
+                      className="inline-flex items-center px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                   >
@@ -146,7 +146,7 @@ export const Projects = () => {
                       {project.tags?.slice(0, 3).map((tag, index) => (
                           <span
                               key={index}
-                              className="bg-indigo-600 text-white text-xs font-semibold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded text-[10px] sm:text-xs"
+                              className="bg-cyan-600 text-white text-xs font-semibold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded text-[10px] sm:text-xs"
                           >
                           {tag}
                         </span>

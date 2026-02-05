@@ -136,6 +136,10 @@ export const PerformanceProvider = ({ children }) => {
         }, 100);
     }, [performanceMode]);
 
+    useEffect(() => {
+        document.documentElement.classList.toggle('reduce-motion', performanceMode === 'low');
+    }, [performanceMode]);
+
     const updatePerformanceMode = (mode) => {
         setPerformanceMode(mode);
         localStorage.setItem('performanceMode', mode);

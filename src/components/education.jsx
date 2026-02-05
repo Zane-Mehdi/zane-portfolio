@@ -16,7 +16,7 @@ export const Education = () => (
                         transition={{ duration: 0.5 }}
                     >
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{edu.institution}</h3>
-                        <p className="text-indigo-600 dark:text-indigo-400 font-medium">{edu.degree}</p>
+                        <p className="text-cyan-600 dark:text-cyan-400 font-medium">{edu.degree}</p>
                         <time className="block my-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">{edu.period}</time>
                         <p className="text-base font-normal text-gray-600 dark:text-gray-300">{edu.description}</p>
                     </motion.div>

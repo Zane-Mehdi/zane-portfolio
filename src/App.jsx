@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react';
-import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useSpring, MotionConfig } from 'framer-motion';
 import {About} from "./components/about.jsx";
 import {Hero} from "./components/hero.jsx";
 import {Testimonials} from "./components/testimonials.jsx";
@@ -21,12 +21,15 @@ import Ribbons from "./components/Ribbons.jsx";
 import CardSwap, {Card} from "./components/CardSwap.jsx";
 import MagicBento from "./components/MagicBento.jsx";
 import GlassSurface from "./components/GlassSurface.jsx";
+import { usePerformance } from "./useHooks/usePerformance.jsx";
 
 const App = () => {
     const [theme, setTheme] = useState('dark');
     const [currentView, setCurrentView] = useState('home');
     const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
     const [allowScrollAnimations, setAllowScrollAnimations] = useState(true);
+    const { performanceMode } = usePerformance();
+    const reduceMotionEnabled = performanceMode === 'low';
 
     // Improved scroll reset function
     const scrollToTop = () => {
@@ -183,83 +186,85 @@ const App = () => {
     const ribbonColors = useMemo(() => {
         return theme === "dark"
             ? [
-                "#818CF8", // indigo-400
+                "#22D3EE", // cyan-400
             ]
             : [
-                "#0EA5E9",
+                "#06B6D4", // cyan-500
             ];
     }, [theme]);
 
 
     return (
-        <div
-            className="bg-white dark:bg-gray-950 text-gray-900 dark:text-white font-sans antialiased selection:bg-indigo-500/50">
-            {/*<SpotlightEffect theme={theme}/>*/}
-            <CommandPalette
-                isOpen={isCommandPaletteOpen}
-                setIsOpen={setIsCommandPaletteOpen}
-                setCurrentView={handleViewChange}
-                toggleTheme={toggleTheme}
-            />
+        <MotionConfig reducedMotion={reduceMotionEnabled ? "always" : "user"}>
+            <div
+                className="bg-white dark:bg-gray-950 text-gray-900 dark:text-white font-sans antialiased selection:bg-cyan-500/50">
+                {/*<SpotlightEffect theme={theme}/>*/}
+                <CommandPalette
+                    isOpen={isCommandPaletteOpen}
+                    setIsOpen={setIsCommandPaletteOpen}
+                    setCurrentView={handleViewChange}
+                    toggleTheme={toggleTheme}
+                />
 
-            {/* Floating Contact Button */}
-            <FloatingContactButton
-                onContactClick={() => handleViewChange('contact')}
-                currentView={currentView}
-            />
+                {/* Floating Contact Button */}
+                <FloatingContactButton
+                    onContactClick={() => handleViewChange('contact')}
+                    currentView={currentView}
+                />
 
-            <motion.div className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 origin-left z-[60]" style={{scaleX}}/>
-            <Navbar
-                theme={theme}
-                toggleTheme={toggleTheme}
-                currentView={currentView}
-                setCurrentView={handleViewChange}
-            />
+                <motion.div className="fixed top-0 left-0 right-0 h-1 bg-cyan-500 origin-left z-[60]" style={{scaleX}}/>
+                <Navbar
+                    theme={theme}
+                    toggleTheme={toggleTheme}
+                    currentView={currentView}
+                    setCurrentView={handleViewChange}
+                />
 
-            <main className="relative z-10" data-scroll-animations={allowScrollAnimations}>
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentView}
-                        variants={enhancedViewVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                    >
-                        {currentView === 'home' && (
-                            <>
-                                <Hero/>
+                <main className="relative z-10" data-scroll-animations={allowScrollAnimations}>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={currentView}
+                            variants={enhancedViewVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                        >
+                            {currentView === 'home' && (
+                                <>
+                                    <Hero/>
 
-                                {/* Projects Section */}
-                                <Projects/>
+                                    {/* Projects Section */}
+                                    <Projects/>
 
-                                {/* Skills Section */}
-                                <Skills/>
+                                    {/* Skills Section */}
+                                    <Skills/>
 
-                                {/*/!* About Section *!/*/}
-                                {/*<About/>*/}
+                                    {/*/!* About Section *!/*/}
+                                    {/*<About/>*/}
 
-                                {/* Work History Section */}
-                                <WorkHistory forceVisible={!allowScrollAnimations}/>
+                                    {/* Work History Section */}
+                                    <WorkHistory forceVisible={!allowScrollAnimations}/>
 
-                                {/* Education Section */}
-                                <Education forceVisible={!allowScrollAnimations}/>
+                                    {/* Education Section */}
+                                    <Education forceVisible={!allowScrollAnimations}/>
 
-                                {/* Resume Section */}
-                                <Resume forceVisible={!allowScrollAnimations}/>
-                                    
-                            </>
-                        )}
+                                    {/* Resume Section */}
+                                    <Resume forceVisible={!allowScrollAnimations}/>
 
-                        {currentView === 'contact' && (
-                            <div className="pt-24">
-                                <Contact/>
-                            </div>
-                        )}
-                    </motion.div>
-                </AnimatePresence>
-            </main>
-            <Footer/>
-        </div>
+                                </>
+                            )}
+
+                            {currentView === 'contact' && (
+                                <div className="pt-24">
+                                    <Contact/>
+                                </div>
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
+                </main>
+                <Footer/>
+            </div>
+        </MotionConfig>
         
     );
 };

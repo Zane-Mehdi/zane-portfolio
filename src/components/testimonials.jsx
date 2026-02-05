@@ -16,10 +16,10 @@ export const Testimonials = () => {
                             viewport={{ once: true, amount: 0.5 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            <img src={testimonial.avatar} alt={testimonial.name} className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-indigo-300" />
+                            <img src={testimonial.avatar} alt={testimonial.name} className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-cyan-300" />
                             <p className="text-gray-600 dark:text-gray-300 italic mb-4">"{testimonial.quote}"</p>
                             <h4 className="font-bold text-lg text-gray-900 dark:text-white">{testimonial.name}</h4>
-                            <p className="text-sm text-indigo-500">{testimonial.company}</p>
+                            <p className="text-sm text-cyan-500">{testimonial.company}</p>
                         </motion.div>
                     ))}
                 </div>

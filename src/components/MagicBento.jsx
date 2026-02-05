@@ -503,9 +503,9 @@ const MagicBento = ({
             --border-color: #392e4e;
             --background-dark: #060010;
             --white: hsl(0, 0%, 100%);
-            --purple-primary: rgba(132, 0, 255, 1);
-            --purple-glow: rgba(132, 0, 255, 0.2);
-            --purple-border: rgba(132, 0, 255, 0.8);
+            --purple-primary: rgba(0, 209, 255, 1);
+            --purple-glow: rgba(0, 209, 255, 0.2);
+            --purple-border: rgba(0, 209, 255, 0.8);
           }
           
           .card-responsive {

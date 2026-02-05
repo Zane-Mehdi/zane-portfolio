@@ -40,7 +40,7 @@ export const GitHubActivityFeed = () => {
             CreateEvent: 'M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z', // Circle for repo creation
             IssuesEvent: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 11 2s10 4.477 10 10z', // Chat bubble for issue
         };
-        return <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={icons[type] || ''}></path></svg>;
+        return <svg className="w-5 h-5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={icons[type] || ''}></path></svg>;
     };
 
     const formatEvent = (event) => {

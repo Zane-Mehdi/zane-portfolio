@@ -37,7 +37,7 @@ const SkillItem = memo(({ skill, index }) => {
             </span>
 
             {/* Category Badge */}
-            <span className="absolute -top-2 -right-2 text-xs bg-indigo-500 text-white px-2 py-1 rounded-full">
+            <span className="absolute -top-2 -right-2 text-xs bg-cyan-500 text-white px-2 py-1 rounded-full">
                 {skill.category}
             </span>
         </motion.div>
@@ -73,8 +73,8 @@ export const Skills = () => {
                                 onClick={() => setFilter(category)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                                     filter === category
-                                        ? 'bg-indigo-500 text-white shadow-lg'
-                                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-gray-700'
+                                        ? 'bg-cyan-500 text-white shadow-lg'
+                                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-cyan-100 dark:hover:bg-gray-700'
                                 }`}
                             >
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -111,7 +111,7 @@ export const Skills = () => {
                     <div className="flex justify-center max-w-md mx-auto">
                         <div
                             className="p-6 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                            <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">2+</h3>
+                            <h3 className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 mb-2">2+</h3>
                             <p className="text-gray-600 dark:text-gray-400">Years Professional Experience</p>
                         </div>
                     </div>

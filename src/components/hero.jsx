@@ -114,7 +114,7 @@ export const Hero = () => {
                 className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-950 dark:to-gray-900"
             >
                 {/* Simple static gradient background instead of animated one */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 dark:from-indigo-500/10 dark:to-purple-500/10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 dark:from-cyan-500/10 dark:to-blue-500/10" />
 
                 {/* Main Content - No complex animations */}
                 <div className="relative z-10">
@@ -122,7 +122,7 @@ export const Hero = () => {
                         {title}
                     </h1>
 
-                    <p className="mt-4 text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 font-medium animate-fadeIn animation-delay-200">
+                    <p className="mt-4 text-xl md:text-2xl text-cyan-600 dark:text-cyan-400 font-medium animate-fadeIn animation-delay-200">
                         Software Engineer
                     </p>
 
