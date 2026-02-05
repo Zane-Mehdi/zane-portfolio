@@ -57,22 +57,16 @@ export const handler = async (event, context) => {
 
         CURRENT WORK EXPERIENCE:
         
-        Software Engineer at Pulselive (Sep 2023 – Present):
-        - Built and maintained frontend experiences using a custom CMS, integrating FreeMarker templating with React/JavaScript and SCSS for dynamic, branded pages
-        - Developed full-stack solutions using Java (Spring & Maven), delivering scalable features across major sports platforms including the Premier League, Saudi Pro League, and the England & Wales Cricket Board
-        - Worked on mobile apps and widgets, focusing on automation testing and UI development using Kotlin and Swift
-        - Contributed to backend systems using Java and Spring, including upgrading core services to Java 21 and supporting ongoing Maven-based builds
-        - Led the integration of AI tools with Figma designs to automatically generate functional requirements, streamlining delivery and reducing manual interpretation
-        - Implemented Memcache and optimised SQL queries for improved data access, powering internal tools such as the company website and organisational chart application
-        - Worked with AWS, Docker, and OpenAPI to modernise deployment workflows and improve team productivity
-        - Actively contributed to Agile ceremonies and sprint planning using Jira, Bitbucket, and SonarCloud, ensuring code quality and traceability
-        - Drove automated testing across the stack, incorporating tools like Maestro for mobile UI flows
-        - Built strong knowledge across the full software development lifecycle, from feature scoping and development to production deployment and support
+        Software Engineer at Pulselive (2023 – Present):
+        - Delivered cross-platform features across front-end (React/Preact), back-end (Java/Spring), and mobile (Android & React Native) for high-traffic global sports platforms including Premier League, Saudi Pro League, ECB, and FC Barcelona, owning daily feature delivery, bug fixes, UI enhancements, and performance optimisation
+        - Led a business proposal on AI integration, outlining use cases, tooling recommendations, and pilot opportunities tailored to sports media and fan engagement
+        - Led Maestro testing rollout for SPL and Premier League mobile apps, coordinating with QA and developers, standardising naming/tagging conventions, and centralising test documentation
+        - Upgraded core services to Java 21 and managed CI/CD deployments using ArgoCD across staging, development, and production environments
+        - Improved team workflows by introducing QA sign-off processes, leading planning meetings, relaying feedback to squad leads, and driving testing alignment through shared Confluence documentation
 
         PREVIOUS EXPERIENCE:
-        - Technology Intern at Data Glacier (Jul 2022 – Oct 2022): Led data analysis projects using Python and Jupyter, built predictive analytics website with Flask and machine learning
-        - Technology Intern at Bright Network (Jul 2021 – Aug 2021): Explored cloud computing with AWS and frontend development with React, contributed to tech consulting project using Java and TDD
-        - Programming Instructor at Learning Leap Education (Mar 2017 – Mar 2020): Designed and delivered beginner web development curriculum to young learners
+        - Technology Intern at Bright Network (2021): Conceptualised and executed projects end-to-end, created cohesive aesthetics across web/social/presentations, and produced seasonal print and online catalogs
+        - Programming Instructor at Learning Leap Education (2017 – 2020): Designed and delivered a web development curriculum for young adults, fostering a passion for programming and technology
 
         EDUCATION:
         - King's College London: B.Sc. in Computer Science, First Class Honours (Sep 2020 – May 2023)

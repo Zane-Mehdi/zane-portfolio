@@ -3,37 +3,33 @@ export const workHistoryData = [
         id: 1,
         company: "Pulselive",
         role: "Software Engineer",
-        period: "Sep 2023 – Present",
+        period: "London · 2023 – Present",
         description: [
-            "Built and maintained frontend experiences using a custom CMS, integrating FreeMarker templating with React/JavaScript and SCSS for dynamic, branded pages across major sports platforms including the Premier League, Saudi Pro League, and the England & Wales Cricket Board.",
-            "Developed full-stack solutions using Java (Spring & Maven), JavaScript for an internal company orgchart",
-            "Worked on mobile apps and widgets, focusing on automation testing and UI development using Kotlin and Swift.",
-            "Contributed to backend systems using Java and Spring, including upgrading core services to Java 21 and supporting ongoing Maven-based builds.",
-            "Led the integration of AI tools with Figma designs to automatically generate functional requirements, streamlining delivery and reducing manual interpretation.",
-            "Worked with AWS, Docker, and OpenAPI to modernise deployment workflows and improve team productivity.",
-            "Actively contributed to Agile ceremonies and sprint planning using Jira, Bitbucket, and SonarCloud, ensuring code quality and traceability.",
-            "Drove automated testing across the stack, incorporating tools like Maestro for mobile UI flows.",
-            "Built strong knowledge across the full software development lifecycle, from feature scoping and development to production deployment and support."
+            "Delivered cross-platform features across front-end (React/Preact), back-end (Java/Spring), and mobile (Android & React Native) for high-traffic global sports platforms including Premier League, Saudi Pro League, ECB, and FC Barcelona, owning daily feature delivery, bug fixes, UI enhancements, and performance optimisations.",
+            "Led a business proposal on AI integration, outlining use cases, tooling recommendations, and pilot opportunities tailored to sports media and fan engagement.",
+            "Led Maestro testing rollout for SPL and Premier League mobile apps, coordinating with QA and developers, standardising naming/tagging conventions, and centralising test documentation.",
+            "Upgraded core services to Java 21 and managed CI/CD deployments using ArgoCD across staging, development, and production environments.",
+            "Improved team workflows by introducing QA sign-off processes, leading planning meetings, relaying feedback to squad leads, and driving testing alignment through shared Confluence documentation."
         ]
     },
     {
         id: 2,
         company: "Bright Network",
         role: "Technology Intern",
-        period: "Jul 2021 – Aug 2021",
+        period: "London · 2021",
         description: [
-            "Explored cloud computing with AWS and frontend development with React.",
-            "Contributed to a tech consulting project using Java and TDD, and presented proposals to meet key business objectives."
+            "Conceptualised and executed projects from start to finish, defining goals, creating concept boards, collaborating with brands, and delivering final products.",
+            "Created a cohesive and polished aesthetic across internal and external materials, including the website, social media channels, and presentations.",
+            "Produced dynamic seasonal print and online catalogs, managing all aspects from merchandising to photography."
         ]
     },
     {
         id: 3,
         company: "Learning Leap Education",
         role: "Programming Instructor",
-        period: "Mar 2017 – Mar 2020",
+        period: "London · 2017 – 2020",
         description: [
-            "Designed and delivered a beginner web development curriculum to young learners.",
-            "Inspired interest in programming and computer science fundamentals."
+            "Designed and delivered a web development curriculum for young adults, fostering a passion for programming and technology."
         ]
     }
 ];
@@ -46,7 +42,7 @@ export const educationData = [
         institution: "King's College London",
         degree: "B.Sc. in Computer Science, First Class Honours",
         period: "Sep 2020 – May 2023",
-        description: "Focused on core computer science concepts including software engineering, HCI, and systems design. Graduated top of class with a strong foundation in full-stack development."
+        description: ""
     }
 ];
 
