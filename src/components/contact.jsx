@@ -30,7 +30,7 @@ export const Contact = () => {
         setError(null);
 
         const controller = new AbortController();
-        const timeoutDuration = 30000; // 30 seconds
+        const timeoutDuration = 60000; // 60 seconds
         const timeoutId = setTimeout(() => controller.abort(), timeoutDuration);
 
         try {

@@ -18,7 +18,7 @@ export const Resume = () => (
                     <div className="h-[70vh] w-full">
                         {/* A real PDF would be hosted and linked here */}
                         <iframe
-                            src="./Zane_Mehdi_CV.pdf"
+                            src="./Zane-Mehdi-CV.pdf"
                             className="w-full h-full"
                             title="Zane Mehdi's Resume"
                         />
@@ -26,8 +26,8 @@ export const Resume = () => (
                 </div>
                 <motion.a
                     id="download-cv-link"
-                    href="./Zane_Mehdi_CV.pdf"
-                    download="Zane_Mehdi_CV.pdf"
+                    href="./Zane-Mehdi-CV.pdf"
+                    download="Zane-Mehdi-CV.pdf"
                     className="inline-block mt-8 px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg"
                     whileHover={{scale: 1.05, boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.5)'}}
                     whileTap={{scale: 0.95}}

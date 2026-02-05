@@ -104,29 +104,34 @@ export const handler = async (event, context) => {
         
         Based on the information above, provide a helpful, detailed answer. If the question is about setting up a meeting, asking for a resume, a direct job offer, or anything that requires sending an email, firmly but politely state that you cannot perform that action directly. Instead, suggest that they reach out to Zane on LinkedIn (https://www.linkedin.com/in/zane-mehdi/) or via email (zanemehdi6@gmail.com) for such requests. 
         
-        Provide a friendly and complete response. Aim for a paragraph of about 3-5 sentences so the user gets a helpful answer. Use Zane's specific experience with Java, React, or his sports platform work at Pulselive to add detail. Do not use markdown formatting. Be direct and helpful. For meetings/emails/jobs, say to contact via LinkedIn or email. No markdown.\`;`;
+        Provide a friendly and complete response. Aim for a paragraph of about 3-5 sentences so the user gets a helpful answer. Use Zane's specific experience with Java, React, or his sports platform work at Pulselive to add detail. Do not use markdown formatting. Be direct and helpful. For meetings/emails/jobs, say to contact via LinkedIn or email. No markdown.`;
 
         // Call Gemini API
 
         const payload = {
             contents: [{ role: "user", parts: [{ text: prompt }] }],
             generationConfig: {
-                maxOutputTokens: 500,
+                maxOutputTokens: 1200,
                 temperature: 0.7
             }
         };
 
-        const model = 'gemini-2.5-flash'; // Stable as of Jan 2026
+        const model = process.env.GEMINI_MODEL || 'gemini-flash-latest';
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-goog-api-key': process.env.GEMINI_API_KEY // Recommended header approach
-            },
-            body: JSON.stringify(payload),
-        });
+        const callGemini = async (body) => {
+            const res = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': process.env.GEMINI_API_KEY // Recommended header approach
+                },
+                body: JSON.stringify(body),
+            });
+            return res;
+        };
+
+        const response = await callGemini(payload);
 
         if (!response.ok) {
             if (response.status === 429) {
@@ -143,12 +148,55 @@ export const handler = async (event, context) => {
 
         const result = await response.json();
 
-        if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
+        const candidate = result.candidates?.[0];
+        const parts = candidate?.content?.parts || [];
+        const text = parts.map((part) => part?.text || '').join('');
+        const finishReason = candidate?.finishReason;
+
+        if (finishReason) {
+            console.log('Gemini finishReason:', finishReason);
+        }
+        if (result.usageMetadata) {
+            console.log('Gemini usageMetadata:', result.usageMetadata);
+        }
+
+        const looksTruncated = (value) => {
+            if (!value) return false;
+            return !/[.!?]$/.test(value.trim());
+        };
+
+        let finalText = text;
+
+        if (finishReason === 'MAX_TOKENS' || looksTruncated(text)) {
+            const continuationPayload = {
+                contents: [
+                    { role: "user", parts: [{ text: prompt }] },
+                    { role: "model", parts: [{ text: text || '' }] },
+                    { role: "user", parts: [{ text: "Continue from where you left off. Finish the last sentence and stop." }] }
+                ],
+                generationConfig: {
+                    maxOutputTokens: 600,
+                    temperature: 0.7
+                }
+            };
+
+            const continuationResponse = await callGemini(continuationPayload);
+            if (continuationResponse.ok) {
+                const continuationResult = await continuationResponse.json();
+                const continuationParts = continuationResult.candidates?.[0]?.content?.parts || [];
+                const continuationText = continuationParts.map((part) => part?.text || '').join('');
+                if (continuationText) {
+                    finalText = `${text}${continuationText}`;
+                }
+            }
+        }
+
+        if (finalText) {
             return {
                 statusCode: 200,
                 headers,
                 body: JSON.stringify({
-                    message: result.candidates[0].content.parts[0].text
+                    message: finalText
                 }),
             };
         } else {
